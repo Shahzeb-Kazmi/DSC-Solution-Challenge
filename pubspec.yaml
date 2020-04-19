@@ -18,6 +18,7 @@ dependencies:
   rflutter_alert: ^1.0.3
   cloud_firestore: ^0.13.5
   flutter_email_sender: ^3.0.1
+  url_launcher: ^5.4.2
 
 dev_dependencies:
   flutter_test:

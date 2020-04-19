@@ -3,12 +3,17 @@ import 'package:flutter_smart_course/src/helper/quad_clipper.dart';
 import 'package:flutter_smart_course/src/pages/all_jobs_page.dart';
 import 'package:flutter_smart_course/src/pages/job_info_page.dart';
 import 'package:flutter_smart_course/src/pages/profile_page.dart';
+import 'package:flutter_smart_course/src/pages/stories_page.dart';
 import 'package:flutter_smart_course/src/theme/color/light_color.dart';
 import 'package:flutter_smart_course/src/FadeAnimation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_smart_course/models/job.dart';
+import 'about_page.dart';
+import 'all_opps_page.dart';
 import 'featured_job_info.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
@@ -142,7 +147,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _categoryRow(String title, Color primary, Color textColor, context)
+  Widget _categoryRowA(Color primary, Color textColor, context)
+  {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      height: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          GestureDetector(
+              onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context)=>About())),
+              child: _chip("About Us", primary),
+          ),
+
+          GestureDetector(
+            onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context)=>Stories())),
+            child: _chip("Stories", primary),
+          ),
+
+          GestureDetector(
+            onTap:() async {
+                final Email email = Email(
+                recipients: ['tulbaincofficial@gmail.com'],
+                isHTML: false,
+                );
+                await FlutterEmailSender.send(email);
+                print('pressed!');
+                },
+            child: _chip("Contact", primary),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _categoryRowB(String title, Color primary, Color textColor, context)
   {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -157,6 +196,27 @@ class _HomePageState extends State<HomePage> {
           ),
           GestureDetector(
             onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context)=>AllJobs())),
+              child: _chip("See all", primary))
+        ],
+      ),
+    );
+  }
+
+  Widget _categoryRowC(String title, Color primary, Color textColor, context)
+  {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      height: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+                color: LightColor.titleTextColor, fontWeight: FontWeight.bold),
+          ),
+          GestureDetector(
+              onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context)=>AllOpps())),
               child: _chip("See all", primary))
         ],
       ),
@@ -313,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                     primary: LightColor.seeBlue,
                     chipColor: LightColor.seeBlue,
                     backWidget: _decorationContainerD(
-                        LightColor.darkseeBlue, -100, -65,
+                        LightColor.darkseeBlue, -130, -65,
                         secondary: LightColor.lightseeBlue,
                         secondaryAccent: LightColor.seeBlue),
                     chipText1: jobList[0].title + " at " + jobList[0].company,
@@ -361,6 +421,115 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Widget _featuredRowC(context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: StreamBuilder<QuerySnapshot>(
+          stream: _firestore.collection('opportunities').snapshots(),
+          builder: (context, snapshot){
+            if(!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(backgroundColor: Colors.lightBlueAccent,),
+              );
+            }
+            final opps = snapshot.data.documents;
+            List <OppModel> oppList = [];
+            for (var opp in opps) {
+              final title = opp.data['title'];
+              print('success');
+              final imageUrl = opp.data['image'];
+              final org = opp.data['organisation'];
+              final description = opp.data['description'];
+              final type = opp.data['type'];
+              final name = opp.data['name'];
+              final learnmore = opp.data['learnmore'];
+
+              final oppData = OppModel(
+                description: description,
+                imageUrl: imageUrl,
+                name: name,
+                title: title,
+                learnmore: learnmore ,
+                organisation: org,
+                type: type,
+                photos: [
+                  "https://cdn.pixabay.com/photo/2015/04/20/13/17/work-731198_960_720.jpg",
+                  "https://cdn.pixabay.com/photo/2017/07/31/11/31/laptop-2557468_960_720.jpg",
+                  "https://cdn.pixabay.com/photo/2017/07/31/11/46/laptop-2557586_960_720.jpg",
+                  "https://cdn.pixabay.com/photo/2015/05/28/14/38/ux-787980_960_720.jpg",
+                ],
+              );
+              oppList.add(oppData);
+            }
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                GestureDetector(
+                  onTap:() {
+                    _launchURL(oppList[0].learnmore);
+                 },
+                  child: _card(
+                      primary: Colors.green[400],
+                      chipColor: LightColor.seeBlue,
+                      backWidget: _decorationContainerD(
+                          Colors.green[500], -160, -80,
+                          secondary: Colors.green[100],
+                          secondaryAccent: Colors.green[100]),
+                      chipText1: oppList[0].name + " by " + oppList[0].organisation,
+                      chipText2: 'Learn More',
+                      isPrimaryCard: true,
+                      imgPath:
+                      oppList[0].imageUrl),
+                ),
+
+                GestureDetector(
+                  onTap:() {
+                      _launchURL(oppList[1].learnmore);
+                  },
+                  child: _card(
+                      primary: Colors.white,
+                      chipColor: LightColor.lightpurple,
+                      backWidget: _decorationContainerE(
+                        LightColor.lightpurple,
+                        150,
+                        -70,
+                        secondary: LightColor.lightseeBlue,
+                      ),
+                      chipText1: oppList[1].name + " by " + oppList[1].organisation,
+                      chipText2: 'Learn More',
+                      imgPath:
+                      oppList[1].imageUrl),
+                ),
+
+                GestureDetector(
+                  onTap:(){
+                      _launchURL(oppList[1].learnmore);
+                  },
+                  child: _card(
+                      primary: Colors.white,
+                      chipColor: LightColor.lightOrange,
+                      backWidget: _decorationContainerF(
+                          LightColor.lightOrange, LightColor.orange, 50, -30),
+                      chipText1: oppList[2].name + " by " + oppList[2].organisation,
+                      chipText2: 'Learn More',
+                      imgPath:
+                      oppList[2].imageUrl),
+                ),
+              ],
+            );
+          }
+      ),
+    );
+  }
+
+
+  //#########################################################################//
+  //########################################################################//
+  //############################## Design Resources Below ##################//
+  //#######################################################################//
+  //######################################################################//
 
   Widget _card(
       {Color primary = Colors.redAccent,
@@ -655,14 +824,29 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               _header(context),
               SizedBox(height: 20),
-              _categoryRow("Featured", Colors.white, Colors.white, context),
+              _categoryRowA(LightColor.purple, LightColor.darkpurple, context),
+              SizedBox(height: 20),
+              _categoryRowB("Featured", Colors.white, Colors.white, context),
               _featuredRowA(context),
               SizedBox(height: 0),
-              _categoryRow(
+              _categoryRowB(
                   "Jobs", LightColor.purple, LightColor.darkpurple, context),
-              _featuredRowB(context)
+              _featuredRowB(context),
+              SizedBox(height: 0),
+              _categoryRowC(
+                  "Opporutunities", LightColor.purple, LightColor.darkpurple, context),
+              _featuredRowC(context),
             ],
           ),
         )));
+  }
+}
+
+_launchURL(var learnmore) async {
+  var url = "$learnmore";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

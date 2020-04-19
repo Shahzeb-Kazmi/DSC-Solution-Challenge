@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_course/src/FadeAnimation.dart';
 import 'package:flutter_smart_course/src/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_smart_course/src/pages/post_job_page.dart';
 import 'package:flutter_smart_course/src/pages/registration_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -129,7 +130,22 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       )),
-                      SizedBox(height: 40,),
+                      SizedBox(height: 20,),
+                      FadeAnimation(2, GestureDetector(
+                        child: Center(
+                          child: Text("Register An Account",
+                            style: TextStyle(
+                                color: Color.fromRGBO(196, 135, 198, 1)),
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return RegistrationPage();
+                          }));
+                        },
+                      ),
+                      ),
+                      SizedBox(height: 20,),
                       FadeAnimation(1.9, GestureDetector(
                         child: Container(
                           height: 50,
@@ -176,21 +192,22 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         },
                       )),
-                      SizedBox(height: 25,),
+                      SizedBox(height: 15,),
                       FadeAnimation(2, GestureDetector(
                         child: Center(
-                          child: Text("Register An Account",
+                          child: Text("Post A Job",
                             style: TextStyle(
                                 color: Color.fromRGBO(196, 135, 198, 1)),
                           ),
                         ),
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return RegistrationPage();
+                            return JobPostPage();
                           }));
                         },
                       ),
                       ),
+                      SizedBox(height: 25,),
                     ],
                   ),
                 )
