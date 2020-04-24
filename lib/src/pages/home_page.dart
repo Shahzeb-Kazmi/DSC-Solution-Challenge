@@ -834,7 +834,7 @@ class _HomePageState extends State<HomePage> {
               _featuredRowB(context),
               SizedBox(height: 0),
               _categoryRowC(
-                  "Opporutunities", LightColor.purple, LightColor.darkpurple, context),
+                  "Opportunities", LightColor.purple, LightColor.darkpurple, context),
               _featuredRowC(context),
             ],
           ),
