@@ -1,15 +1,13 @@
-## Tulba ![Dart CI](https://github.com/TheAlphamerc/flutter_smart_course/workflows/Dart%20CI/badge.svg)
+## Tulba - Connecting Students and Jobs
 
-Tulba is built using Google's Flutter framework. App design is based on [Smart Course](https://dribbble.com/shots/10090738-SmartCourse) designed by [Nugraha Jati Utama](https://dribbble.com/nugrahajatiutama)
+Tulba is built using Google's Flutter framework. This platform is a submission for Developer Student Clubs Global Solution Challenge 2020.
 
-
-<img src="https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/images/Tulba%20-%20Copy.png"  /> 
 
 ## Screenshots
 
  Android HomePage              |  Android Recommend Page 
 :-------------------------:|:-------------------------:
-![](https://github.com/TheAlphamerc/flutter_smart_course/blob/master/screenshots/screenshot_1.jpg?raw=true)|![](https://github.com/TheAlphamerc/flutter_smart_course/blob/master/screenshots/screenshot_2.jpg?raw=true)
+![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshots/Screenshot_20200420-130036.jpg)|![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshotsScreenshot_20200420-135613.jpg/.png)
 
 
 ## Getting Started
