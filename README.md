@@ -7,7 +7,7 @@ Tulba is built using Google's Flutter framework. This platform is a submission f
 
  Android HomePage              |  Android Recommend Page 
 :-------------------------:|:-------------------------:
-![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshots/Screenshot_20200420-130036.jpg)|![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshotsScreenshot_20200420-135613.jpg/.png)
+![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshots/Screenshot_20200420-130036.jpg)|![](https://github.com/Shahzeb-Kazmi/DSC-Solution-Challenge/blob/master/screenshots/Screenshot_20200420-135613.jpg.png)
 
 
 ## Getting Started
