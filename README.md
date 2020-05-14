@@ -26,7 +26,7 @@ Tulba is built using Google's Flutter framework. This platform is a submission f
 
 ## Website
 
-- Tulba website source code is also included in this repository named Tulba-Website.zip. The website has been deployed and is live at tulba.herokuapp.com
+- Tulba website source code is also included in this repository named Tulba-Website.zip. The website has been deployed using Firebase and is live at https://tulba-pk.web.app/
 
 # Included In The Repo
 
