@@ -24,6 +24,10 @@ Tulba is built using Google's Flutter framework. This platform is a submission f
 
 - Once done, attach a physical Android device or start an emulator. Click on Run. The project will build the app in debug mode and it will run smoothly on your device. 
 
+- To test out the app with a general test account, sign in using these credentials:
+  Email: test@test.com
+  Password: test1234
+
 ## Website
 
 - Tulba website source code is also included in this repository named Tulba-Website.zip. The website has been deployed using Firebase and is live at https://tulba-pk.web.app/
